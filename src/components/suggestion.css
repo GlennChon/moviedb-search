@@ -1,0 +1,7 @@
+.image-container {
+  width: 50px;
+  height: 90px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}

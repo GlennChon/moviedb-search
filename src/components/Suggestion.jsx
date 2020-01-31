@@ -1,12 +1,13 @@
 import React from "react";
 import { Row, Col, Image } from "react-bootstrap";
+import "./suggestion.css";
 
-export const Suggestion = ({ imagePath, title, rating, release }) => {
+const Suggestion = ({ imagePath, title, rating, release }) => {
   return (
     <React.Fragment>
       <Row>
         <Col xs={2}>
-          <Image src={imagePath} rounded />
+          <Image className="image-container" src={imagePath} rounded />
         </Col>
         <Col xs={10}>
           <Row>
@@ -21,3 +22,5 @@ export const Suggestion = ({ imagePath, title, rating, release }) => {
     </React.Fragment>
   );
 };
+
+export default Suggestion;
