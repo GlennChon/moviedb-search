@@ -11,11 +11,13 @@ const Suggestion = ({ imagePath, title, rating, release }) => {
         </Col>
         <Col xs={10}>
           <Row>
-            <Col>{title}</Col>
+            <Col>
+              <h5>{title}</h5>
+            </Col>
           </Row>
           <Row>
-            <Col>{("Rating:", rating)}</Col>
-            <Col>{("Release:", release)}</Col>
+            <Col>{"Rating: " + rating}</Col>
+            <Col>{"Release: " + release}</Col>
           </Row>
         </Col>
       </Row>
