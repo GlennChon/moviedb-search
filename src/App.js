@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { SearchBar } from "./components/SearchBar";
-import { Overlay, Row } from "react-bootstrap";
+import { Overlay, Row, Col } from "react-bootstrap";
 import { getSearchResults, getMovieDetails } from "./services/moviedbService";
 import SearchSuggestions from "./components/SearchSuggestions";
 import useDebounce from "./services/debounce";
@@ -10,6 +10,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   const [val, setVal] = useState("");
+  const [valChanged, setValChanged] = useState(false);
   const [view, setView] = useState("main");
   const [results, setResults] = useState({});
   const target = useRef(null);
@@ -26,17 +27,20 @@ function App() {
   }, [debounceSearchVal]);
 
   const handleChange = e => {
+    setValChanged(true);
     setVal(e.target.value);
   };
 
   const handleSubmit = async (e, val) => {
     e.preventDefault();
+    setValChanged(false);
     setResults(await getSearchResults(val));
   };
 
   const handleSuggestionClick = async (e, movie) => {
-    e.preventDefault();
     console.log(movie.id + " clicked");
+    e.preventDefault();
+    setValChanged(false);
     setVal(movie.title);
     setResults(await getMovieDetails(movie.id));
   };
@@ -57,10 +61,8 @@ function App() {
 
       <Overlay
         target={target.current}
-        show={
-          results.total_results !== 0 && results.total_results !== undefined
-        }
-        placement="bottom"
+        show={valChanged}
+        placement="bottom-start"
       >
         {({
           placement,
@@ -70,7 +72,7 @@ function App() {
           show,
           ...props
         }) => (
-          <div {...props}>
+          <Col {...props}>
             {results.total_results !== 0 &&
               results.total_results !== undefined && (
                 <SearchSuggestions
@@ -80,7 +82,7 @@ function App() {
                   results={results.results ? results.results : []}
                 />
               )}
-          </div>
+          </Col>
         )}
       </Overlay>
       <h1>Test H1</h1>
