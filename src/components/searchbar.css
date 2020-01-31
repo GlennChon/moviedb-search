@@ -1,0 +1,6 @@
+input {
+  width: 75%;
+  font-size: 24px;
+  /*starts cursor a bit further right*/
+  padding-left: 10px;
+}
