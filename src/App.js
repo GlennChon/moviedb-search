@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { SearchBar } from "./components/SearchBar";
-import { Overlay, Row, Col } from "react-bootstrap";
+import { SearchResults } from "./components/SearchResults";
+import { Overlay, Container, Row, Col } from "react-bootstrap";
 import { getSearchResults, getMovieDetails } from "./services/moviedbService";
 import SearchSuggestions from "./components/SearchSuggestions";
 import useDebounce from "./services/debounce";
@@ -12,17 +13,18 @@ function App() {
   const [val, setVal] = useState("");
   const [valChanged, setValChanged] = useState(false);
   const [view, setView] = useState("main");
+  const [suggestions, setSuggestions] = useState([]);
   const [results, setResults] = useState({});
   const target = useRef(null);
-  const debounceSearchVal = useDebounce(val, 500);
+  const debounceSearchVal = useDebounce(val, 300);
 
   useEffect(() => {
     if (debounceSearchVal) {
-      getSearchResults(val).then(results => {
-        setResults(results);
+      getSearchResults(val).then(res => {
+        setSuggestions(res);
       });
     } else {
-      setResults({});
+      setSuggestions({});
     }
   }, [debounceSearchVal]);
 
@@ -34,6 +36,7 @@ function App() {
   const handleSubmit = async (e, val) => {
     e.preventDefault();
     setValChanged(false);
+    setView("main");
     setResults(await getSearchResults(val));
   };
 
@@ -42,64 +45,59 @@ function App() {
     e.preventDefault();
     setValChanged(false);
     setVal(movie.title);
+    setView("detail");
     setResults(await getMovieDetails(movie.id));
   };
 
   return (
-    <div className="App">
-      <div ref={target}>
-        <SearchBar
-          id="movie-search"
-          name="movie-searchbar"
-          handleSubmit={e => {
-            handleSubmit(e, val);
-          }}
-          value={val}
-          handleChange={handleChange}
-        />
-      </div>
-
-      <Overlay
-        target={target.current}
-        show={valChanged}
-        placement="bottom-start"
-      >
-        {({
-          placement,
-          scheduleUpdate,
-          arrowProps,
-          outOfBoundaries,
-          show,
-          ...props
-        }) => (
-          <Col {...props}>
-            {results.total_results !== 0 &&
-              results.total_results !== undefined && (
-                <SearchSuggestions
-                  handleClick={handleSuggestionClick}
-                  baseImgPath="https://image.tmdb.org/t/p/original"
-                  size={5}
-                  results={results.results ? results.results : []}
-                />
-              )}
-          </Col>
-        )}
-      </Overlay>
-      <h1>Test H1</h1>
-    </div>
+    <Container fluid="md" className="App">
+      <Row className="justify-content-md-center">
+        <Col>
+          <h1>Search The Movie DB</h1>
+          <SearchBar
+            id="movie-search"
+            name="movie-searchbar"
+            handleSubmit={e => {
+              handleSubmit(e, val);
+            }}
+            value={val}
+            handleChange={handleChange}
+            onBlur={() => {
+              setValChanged(false);
+            }}
+            inputRef={target}
+          />
+          <Overlay target={target.current} show={valChanged} placement="bottom">
+            {({
+              placement,
+              scheduleUpdate,
+              arrowProps,
+              outOfBoundaries,
+              show,
+              ...props
+            }) => (
+              <Col {...props}>
+                {suggestions && (
+                  <SearchSuggestions
+                    handleClick={handleSuggestionClick}
+                    baseImgPath="https://image.tmdb.org/t/p/original"
+                    size={5}
+                    results={suggestions.results ? suggestions.results : []}
+                  />
+                )}
+              </Col>
+            )}
+          </Overlay>
+          {view === "main" && (
+            <SearchResults
+              baseImgPath="https://image.tmdb.org/t/p/original"
+              results={results.results ? results.results : []}
+            />
+          )}
+        </Col>
+      </Row>
+    </Container>
   );
 }
 
 export default App;
-
-/*
-
-          <SearchSuggestions
-            {...props}
-            handleClick={handleSuggestionClick}
-            baseImgPath="https://image.tmdb.org/t/p/original"
-            size={5}
-            results={results.results ? results.results : []}
-          />
-
-      */
