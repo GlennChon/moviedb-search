@@ -1,15 +1,15 @@
 import React from "react";
-import { Row, Col, Image } from "react-bootstrap";
+import { Container, Row, Col, Image } from "react-bootstrap";
 import "./suggestion.css";
 
 const Suggestion = ({ imagePath, title, rating, release }) => {
   return (
-    <React.Fragment>
+    <Container>
       <Row>
-        <Col xs={2}>
+        <Col sm={2}>
           <Image className="image-container" src={imagePath} rounded />
         </Col>
-        <Col xs={10}>
+        <Col sm={10}>
           <Row>
             <Col>
               <h5>{title}</h5>
@@ -21,7 +21,7 @@ const Suggestion = ({ imagePath, title, rating, release }) => {
           </Row>
         </Col>
       </Row>
-    </React.Fragment>
+    </Container>
   );
 };
 
