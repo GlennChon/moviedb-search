@@ -1,6 +1,7 @@
 import React from "react";
 import { MovieCard } from "./MovieCard";
 import { Row, Col } from "react-bootstrap";
+//TODO: implement infinite scroll
 
 export const SearchResults = ({ results, baseImgPath }) => {
   return (
