@@ -35,9 +35,13 @@ function App() {
 
   const handleSubmit = async (e, val) => {
     e.preventDefault();
+    if (val.length == 0) {
+      setResults({});
+    } else {
+      setResults(await getSearchResults(val));
+      setView("main");
+    }
     setValChanged(false);
-    setView("main");
-    setResults(await getSearchResults(val));
   };
 
   const handleSuggestionClick = async (e, movie) => {
