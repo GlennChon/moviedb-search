@@ -29,7 +29,8 @@ export async function getSearchResults(
       return response.json();
     }
   } catch (err) {
-    alert(err);
+    console.log(err);
+    alert(err.status + ": " + err.statusText);
   }
 }
 
@@ -42,6 +43,7 @@ export async function getMovieDetails(movieID) {
       return response.json();
     }
   } catch (err) {
-    alert(err);
+    console.log(err);
+    alert(err.status + ": " + err.statusText);
   }
 }
