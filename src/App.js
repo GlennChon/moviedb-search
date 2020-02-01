@@ -27,14 +27,14 @@ function App() {
   const debounceSearchVal = useDebounce(val, 300);
 
   useEffect(() => {
-    if (debounceSearchVal) {
+    if (debounceSearchVal && val.length > 0) {
       getSearchResults(val, searchType).then(res => {
         setSuggestions(res);
       });
     } else {
       setSuggestions({});
     }
-  }, [debounceSearchVal, searchType, val]);
+  }, [debounceSearchVal, val, searchType]);
 
   const fetchMoreMovies = async () => {
     const nextPage = data.page + 1;
@@ -71,7 +71,6 @@ function App() {
   };
 
   const handleMovieClick = async (e, movie) => {
-    console.log(movie.id);
     e.preventDefault();
     setMovieData(await getMovieDetails(movie.id));
     setValChanged(false);
