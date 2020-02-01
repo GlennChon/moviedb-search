@@ -7,7 +7,12 @@ const Suggestion = ({ imagePath, title, rating, release }) => {
     <Container>
       <Row>
         <Col sm={2}>
-          <Image className="image-container" src={imagePath} rounded />
+          <Image
+            className="image-container"
+            src={imagePath}
+            alt={title}
+            rounded
+          />
         </Col>
         <Col sm={10}>
           <Row>
