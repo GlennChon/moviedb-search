@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Image, Jumbotron } from "react-bootstrap";
 //imdb_url: `https://www.imdb.com/title/${imdb_d}`
 export const MovieDetails = ({ movie, baseImgPath }) => {
+  const [mainImgPath, setMainImgPath] = useState(
+    baseImgPath + movie.poster_path
+  );
+  useEffect(() => {
+    if (movie.backdrop_path !== null) {
+      let newPath = baseImgPath + movie.backdrop_path;
+      setMainImgPath(newPath);
+    }
+  }, []);
+
   // Same file css example
   const style = {
     jumbotron: {
       height: "175%",
-      backgroundImage: "url(" + baseImgPath + movie.backdrop_path + ")",
+      backgroundImage: "url(" + mainImgPath + ")",
       backgroundSize: "cover",
       backgroundRepeat: "no-repeat",
       backgroundPosition: "50% 50%",
@@ -53,7 +63,7 @@ export const MovieDetails = ({ movie, baseImgPath }) => {
   };
   return (
     <>
-      <Jumbotron fluid style={style.jumbotron}>
+      <Jumbotron fluid style={style.jumbotron} alt={movie.title + " Cover"}>
         <Container style={style.container}>
           <Row style={style.topContainer}>
             <Col style={style.left}>
@@ -112,6 +122,7 @@ export const MovieDetails = ({ movie, baseImgPath }) => {
               style={style.poster}
               src={baseImgPath + movie.poster_path}
               rounded
+              alt={movie.title + " Poster"}
             />
           </Col>
         </Row>
