@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { SearchBar } from "./components/SearchBar";
 import { SearchResults } from "./components/SearchResults";
 import { MovieDetails } from "./components/MovieDetails";
-import { Overlay, Container, Row, Col, Form } from "react-bootstrap";
+import { Overlay, Container, Row, Col } from "react-bootstrap";
 import { getSearchResults, getMovieDetails } from "./services/moviedbService";
 import SearchSuggestions from "./components/SearchSuggestions";
 import useDebounce from "./services/debounce";
@@ -21,8 +21,8 @@ function App() {
   const [movieData, setMovieData] = useState();
   const [hasMoreMovies, setHasMoreMovies] = useState(true);
   // used for tv/movie/people/multi search
+  // const [checkedValues, setCheckedValues] = useState([]);
   const [searchType, setSearchType] = useState("movie");
-  const [checkedValues, setCheckedValues] = useState([]);
   const target = useRef(null);
   const debounceSearchVal = useDebounce(val, 300);
 
@@ -34,7 +34,7 @@ function App() {
     } else {
       setSuggestions({});
     }
-  }, [debounceSearchVal]);
+  }, [debounceSearchVal, searchType, val]);
 
   const fetchMoreMovies = async () => {
     const nextPage = data.page + 1;

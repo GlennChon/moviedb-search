@@ -10,7 +10,7 @@ export const MovieDetails = ({ movie, baseImgPath }) => {
       let newPath = baseImgPath + movie.backdrop_path;
       setMainImgPath(newPath);
     }
-  }, []);
+  }, [baseImgPath, movie.backdrop_path]);
 
   // Same file css example
   const style = {
