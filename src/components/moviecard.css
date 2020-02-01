@@ -7,4 +7,6 @@
 .card-image {
   object-fit: cover;
   background-color: grey;
+  display: block;
+  margin: auto;
 }
