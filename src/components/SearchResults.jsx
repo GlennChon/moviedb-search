@@ -1,19 +1,18 @@
 import React from "react";
 import { MovieCard } from "./MovieCard";
-import { Row, Col } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 //TODO: implement infinite scroll
 
-export const SearchResults = ({ results, baseImgPath }) => {
+export const SearchResults = ({ results, baseImgPath, handleClick }) => {
   return (
-    <Row>
+    <Row className="justify-content-sm-center">
       {results.map((movie, i) => (
-        <Col>
-          <MovieCard
-            key={i}
-            title={movie.title}
-            imgPath={baseImgPath + movie.poster_path}
-          />
-        </Col>
+        <MovieCard
+          key={i}
+          movie={movie}
+          imgPath={baseImgPath + movie.poster_path}
+          handleClick={handleClick}
+        />
       ))}
     </Row>
   );
