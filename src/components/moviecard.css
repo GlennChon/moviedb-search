@@ -9,4 +9,15 @@
   background-color: grey;
   display: block;
   margin: auto;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.fade-in {
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s linear 0s, opacity 600ms;
+}
+.hidden {
+  visibility: hidden;
 }
