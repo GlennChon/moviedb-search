@@ -24,6 +24,7 @@ export const SearchBar = ({
           onChange={handleChange}
           onBlur={onBlur}
           ref={inputRef}
+          autocomplete="off"
         />
         <InputGroup.Append>
           <Button onClick={handleSubmit}>Search</Button>
