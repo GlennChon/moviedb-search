@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Image, Jumbotron } from "react-bootstrap";
+import { Container, Row, Col, Image, Jumbotron, Button } from "react-bootstrap";
 //imdb_url: `https://www.imdb.com/title/${imdb_d}`
-export const MovieDetails = ({ movie, baseImgPath }) => {
+export const MovieDetails = ({ movie, baseImgPath, fromSearch, setView }) => {
   const [mainImgPath, setMainImgPath] = useState(
     baseImgPath + movie.poster_path
   );
@@ -63,6 +63,17 @@ export const MovieDetails = ({ movie, baseImgPath }) => {
   };
   return (
     <>
+      <Button
+        onClick={() => {
+          if (fromSearch) {
+            setView("searchResults");
+          } else {
+            setView("");
+          }
+        }}
+      >
+        Back
+      </Button>
       <Jumbotron fluid style={style.jumbotron} alt={movie.title + " Cover"}>
         <Container style={style.container}>
           <Row style={style.topContainer}>

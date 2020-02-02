@@ -25,6 +25,8 @@ function App() {
   const [searchType, setSearchType] = useState("movie");
   const target = useRef(null);
   const debounceSearchVal = useDebounce(val, 300);
+  //keeps track of where the user came from to get to movie details
+  const [fromSearch, setFromSearch] = useState(false);
 
   useEffect(() => {
     if (debounceSearchVal && val.length > 0) {
@@ -64,6 +66,7 @@ function App() {
       setData({});
       setView("");
     } else {
+      setFromSearch(true);
       setData(await getSearchResults(val, searchType));
       setView("searchResults");
     }
@@ -122,33 +125,42 @@ function App() {
               </Col>
             )}
           </Overlay>
-          {view === "searchResults" && (
-            <InfiniteScroll
-              dataLength={data.results !== undefined ? data.results.length : 0}
-              next={fetchMoreMovies}
-              hasMore={hasMoreMovies}
-              loader={<h4>Loading...</h4>}
-              endMessage={
-                <p style={{ textAlign: "center" }}>
-                  <b>Nothing more to see :(</b>
-                </p>
-              }
-            >
-              <SearchResults
-                baseImgPath="https://image.tmdb.org/t/p/original"
-                results={data.results !== undefined ? data.results : []}
-                handleClick={handleMovieClick}
-              />
-            </InfiniteScroll>
-          )}
-          {view === "movieDetails" && (
+        </Col>
+      </Row>
+      {view === "searchResults" && (
+        <InfiniteScroll
+          className="no-overflow"
+          dataLength={data.results !== undefined ? data.results.length : 0}
+          next={fetchMoreMovies}
+          hasMore={hasMoreMovies}
+          loader={<h4>Loading...</h4>}
+          endMessage={
+            <p style={{ textAlign: "center" }}>
+              <b>Nothing more to see :(</b>
+            </p>
+          }
+        >
+          <Row className="results no-overflow">
+            <SearchResults
+              baseImgPath="https://image.tmdb.org/t/p/original"
+              results={data.results !== undefined ? data.results : []}
+              handleClick={handleMovieClick}
+            />
+          </Row>
+        </InfiniteScroll>
+      )}
+      {view === "movieDetails" && (
+        <Row className="justify-content-sm-center">
+          <Col>
             <MovieDetails
               movie={movieData}
               baseImgPath="https://image.tmdb.org/t/p/original"
+              setView={setView}
+              fromSearch={fromSearch}
             />
-          )}
-        </Col>
-      </Row>
+          </Col>
+        </Row>
+      )}
     </Container>
   );
 }
