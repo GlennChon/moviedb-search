@@ -13,20 +13,22 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   const [val, setVal] = useState("");
+  //conditional overlay
   const [valChanged, setValChanged] = useState(false);
   //conditional movieDetail or searchResults view
   const [view, setView] = useState("");
+  //keeps track of where the user came from to get to movie details
+  const [fromSearch, setFromSearch] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
   const [data, setData] = useState({});
   const [movieData, setMovieData] = useState();
+  // for infinite scroll
   const [hasMoreMovies, setHasMoreMovies] = useState(true);
   // used for tv/movie/people/multi search
   // const [checkedValues, setCheckedValues] = useState([]);
   const [searchType, setSearchType] = useState("movie");
   const target = useRef(null);
   const debounceSearchVal = useDebounce(val, 300);
-  //keeps track of where the user came from to get to movie details
-  const [fromSearch, setFromSearch] = useState(false);
 
   useEffect(() => {
     if (debounceSearchVal && val.length > 0) {
