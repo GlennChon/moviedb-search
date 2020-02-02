@@ -27,6 +27,11 @@ npm start
 
 Users can search for movies by typing the title in a search field and view movie information.
 
+## Dependencies
+
+- [React Bootstrap](https://react-bootstrap.github.io/)
+- [React Infinite Scroll Component](https://www.npmjs.com/package/react-infinite-scroll-component)
+
 ### Requirements
 
 - The search field should have an ​auto-complete​ feature
