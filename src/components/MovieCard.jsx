@@ -4,9 +4,7 @@ import "./moviecard.css";
 
 export const MovieCard = ({ imgPath, movie, handleClick }) => {
   const [imgClassName, setImgClassName] = useState("card-image");
-  const [cardTextClassName, setCardTextClassName] = useState("");
   const handleImgLoad = () => {
-    setCardTextClassName("hidden");
     setImgClassName("card-image fade-in");
     return;
   };
@@ -25,8 +23,8 @@ export const MovieCard = ({ imgPath, movie, handleClick }) => {
         className={imgClassName}
         onLoad={handleImgLoad}
       />
-      <Card.Text className={cardTextClassName}>
-        <h1>{movie.title}</h1>
+      <Card.Text className="card-text">
+        <h5>{movie.title}</h5>
       </Card.Text>
     </Card>
   );
