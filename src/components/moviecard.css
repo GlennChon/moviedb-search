@@ -11,6 +11,7 @@
   margin: auto;
   visibility: hidden;
   opacity: 0;
+  max-height: 420px;
 }
 .card-text {
   display: block;
