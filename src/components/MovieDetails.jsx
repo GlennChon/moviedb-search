@@ -72,7 +72,7 @@ export const MovieDetails = ({ movie, baseImgPath, fromSearch, setView }) => {
           }
         }}
       >
-        Back
+        Back to Search
       </Button>
       <Jumbotron fluid style={style.jumbotron} alt={movie.title + " Cover"}>
         <Container style={style.container}>
