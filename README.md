@@ -37,7 +37,7 @@ Users can search for movies by typing the title in a search field and view movie
 - The search field should have an ​auto-complete​ feature
 - If a user selects a movie, details of the movie (like title, poster, rating, …) should be  displayed
 - Customize the style of your components
-- Use themoviedb.org API (or any other API you like) to retrieve the data
+- Replace api key in config.json with a themoviedb.org key after registration to retrieve the data
 
 ### Documentation for THE MOVIE DB
 
