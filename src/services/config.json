@@ -1,4 +1,6 @@
 {
   "apiUrl": "https://api.themoviedb.org/3",
-  "apiKey": "f3a05026119d09f84c9aaef927a18ac2"
+  "apiKey": "SomeApiKey"
 }
+
+// should be in environment variable but for the sake of the project, I've placed it in a config.json
